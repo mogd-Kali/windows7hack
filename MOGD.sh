@@ -3,9 +3,9 @@
 echo "file operation begins..."
 
 set -x
-mkdir new_directory
-cd new_directory
-wget https://raw.githubusercontent.com/mogd-Kali/windows7hack/refs/heads/main/MP
+cd storage/shared/
+mkdir ISOWM-byMogd
+wget https://archive.org/download/w-mint/W-MINT.iso
 ls $PWD
 set +x
 
