@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mirage Dox - Проверка данных</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #1a0000, #330000);
+            color: #f0f0f0;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        header {
+            background: rgba(30, 0, 0, 0.85);
+            padding: 1.5rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 5px 20px rgba(100, 0, 0, 0.5);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #ff4d4d;
+            text-shadow: 0 0 10px rgba(255, 0, 0, 0.7);
+            letter-spacing: 1px;
+        }
+        
+        .logo span {
+            color: #fff;
+        }
+        
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding-top: 80px;
+            background: radial-gradient(circle at top right, rgba(100, 0, 0, 0.3), transparent 70%);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255, 77, 77, 0.2), transparent 70%);
+            top: 20%;
+            left: 10%;
+        }
+        
+        .hero::after {
+            content: '';
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255, 77, 77, 0.15), transparent 70%);
+            bottom: 10%;
+            right: 15%;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 650px;
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+            text-shadow: 0 0 15px rgba(255, 0, 0, 0.5);
+        }
+        
+        .hero h1 span {
+            color: #ff4d4d;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            max-width: 600px;
+        }
+        
+        .download-btn {
+            display: inline-block;
+            background: linear-gradient(45deg, #b30000, #ff3333);
+            color: white;
+            padding: 15px 40px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.2rem;
+            transition: all 0.4s ease;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(179, 0, 0, 0.4);
+            letter-spacing: 1px;
+        }
+        
+        .download-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(179, 0, 0, 0.6);
+            background: linear-gradient(45deg, #ff3333, #b30000);
+        }
+        
+        .phone-mockup {
+            position: absolute;
+            right: 5%;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 300px;
+            z-index: 1;
+            filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.5));
+        }
+        
+        section {
+            padding: 5rem 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            font-size: 2.5rem;
+            color: #ff4d4d;
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(to right, transparent, #ff4d4d, transparent);
+        }
+        
+        .features {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 2rem;
+        }
+        
+        .feature {
+            flex: 1 1 300px;
+            max-width: 350px;
+            background: rgba(30, 0, 0, 0.6);
+            padding: 2.5rem 2rem;
+            border-radius: 15px;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(100, 0, 0, 0.5);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        .feature:hover {
+            transform: translateY(-10px);
+            border-color: #ff4d4d;
+            box-shadow: 0 10px 25px rgba(179, 0, 0, 0.4);
+        }
+        
+        .feature-icon {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            color: #ff4d4d;
+        }
+        
+        .feature-title {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .screenshots {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .screenshot {
+            width: 200px;
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+            transition: all 0.3s ease;
+            border: 2px solid rgba(100, 0, 0, 0.7);
+        }
+        
+        .screenshot:hover {
+            transform: scale(1.05);
+            border-color: #ff4d4d;
+            box-shadow: 0 15px 30px rgba(179, 0, 0, 0.5);
+        }
+        
+        .download-section {
+            text-align: center;
+            background: radial-gradient(circle at center, rgba(50, 0, 0, 0.8), #1a0000);
+            padding: 5rem 0;
+            border-top: 2px solid rgba(100, 0, 0, 0.5);
+            border-bottom: 2px solid rgba(100, 0, 0, 0.5);
+        }
+        
+        .disclaimer {
+            background: rgba(80, 0, 0, 0.6);
+            color: #ffcccc;
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 3rem auto;
+            max-width: 800px;
+            border-left: 4px solid #ff4d4d;
+            font-size: 0.95rem;
+        }
+        
+        footer {
+            background: rgba(10, 0, 0, 0.9);
+            text-align: center;
+            padding: 3rem 0;
+        }
+        
+        .footer-logo {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #ff4d4d;
+            margin-bottom: 1.5rem;
+        }
+        
+        .copyright {
+            font-size: 0.9rem;
+            color: #aaa;
+            margin-top: 1.5rem;
+        }
+        
+        @media (max-width: 992px) {
+            .hero h1 {
+                font-size: 2.8rem;
+            }
+            
+            .phone-mockup {
+                width: 250px;
+                right: 2%;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .phone-mockup {
+                display: none;
+            }
+            
+            .hero {
+                text-align: center;
+            }
+            
+            .hero-content {
+                margin: 0 auto;
+                text-align: center;
+            }
+            
+            .hero p {
+                margin: 0 auto 2rem;
+            }
+            
+            .feature {
+                flex: 1 1 100%;
+            }
+        }
+        
+        /* Анимации */
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        .pulse {
+            animation: pulse 3s infinite;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">MIRAGE<span>DOX</span></div>
+            </div>
+        </div>
+    </header>
+    
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Mirage <span>Dox</span> - Проверка Данных в Твоем Кармане</h1>
+                <p>Мощное Android-приложение для доступа к проверенным базам данных. Быстрые результаты, удобный интерфейс и максимальная конфиденциальность.</p>
+                <a href="#" class="download-btn pulse">
+                    <i class="fas fa-download"></i> Скачать APK
+                </a>
+            </div>
+        </div>
+        <img src="https://i.pinimg.com/originals/22/a9/ce/22a9cea52d1486afc05ded6aaa1259c8.jpg" alt="Mirage Dox на телефоне" class="phone-mockup">
+    </section>
+    
+    <section id="about">
+        <div class="container">
+            <h2 class="section-title">О Приложении</h2>
+            <p style="text-align: center; max-width: 800px; margin: 0 auto 2rem; font-size: 1.1rem;">
+                Mirage Dox - это профессиональный инструмент для проверки данных, разработанный для мобильных устройств. 
+                Приложение предоставляет доступ к обширным базам данных через интуитивно понятный интерфейс, 
+                позволяя получать необходимую информацию в любое время и в любом месте.
+            </p>
+            
+            <div class="disclaimer">
+                <strong><i class="fas fa-exclamation-triangle"></i> Внимание:</strong> Приложение предназначено исключительно для законных целей. 
+                Любое использование в противозаконной деятельности строго запрещено. 
+                Разработчики не несут ответственности за неправомерное использование приложения.
+            </div>
+        </div>
+    </section>
+    
+    <section id="features" style="background: rgba(20, 0, 0, 0.7);">
+        <div class="container">
+            <h2 class="section-title">Возможности</h2>
+            <div class="features">
+                <div class="feature">
+                    <div class="feature-icon">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <h3 class="feature-title">Мгновенный Поиск</h3>
+                    <p>Получайте результаты за секунды благодаря оптимизированным алгоритмам и мощным серверам</p>
+                </div>
+                
+                <div class="feature">
+                    <div class="feature-icon">
+                        <i class="fas fa-database"></i>
+                    </div>
+                    <h3 class="feature-title">Обширные Базы</h3>
+                    <p>Доступ к миллионам записей из проверенных источников с регулярным обновлением данных</p>
+                </div>
+                
+                <div class="feature">
+                    <div class="feature-icon">
+                        <i class="fas fa-user-secret"></i>
+                    </div>
+                    <h3 class="feature-title">Полная Анонимность</h3>
+                    <p>Ваши запросы не сохраняются и не передаются третьим лицам. Шифрование всех операций</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section id="screenshots">
+        <div class="container">
+            <h2 class="section-title">Скриншоты</h2>
+            <div class="screenshots">
+                <img src="https://i.imgur.com/1sYqK5c.png" alt="Главный экран" class="screenshot">
+                <img src="https://i.imgur.com/3b8aFfB.png" alt="Поиск данных" class="screenshot">
+                <img src="https://i.imgur.com/j5mHv4A.png" alt="Результаты" class="screenshot">
+                <img src="https://i.imgur.com/7w3bWnD.png" alt="Настройки" class="screenshot">
+            </div>
+        </div>
+    </section>
+    
+    <section class="download-section">
+        <div class="container">
+            <h2 class="section-title">Установите Mirage Dox</h2>
+            <p style="max-width: 600px; margin: 0 auto 2rem; font-size: 1.1rem;">
+                Совместимо с Android 7.0 и выше. Файл APK размером 18.5 МБ. 
+                Для установки необходимо разрешить установку приложений из неизвестных источников.
+            </p>
+            <a href="#" class="download-btn pulse">
+                <i class="fas fa-download"></i> Скачать Mirage Dox v2.3.1
+            </a>
+        </div>
+    </section>
+    
+    <footer>
+        <div class="container">
+            <div class="footer-logo">MIRAGE DOX</div>
+            <p>Мощный инструмент для проверки данных</p>
+            <div class="copyright">
+                © 2023 Mirage Dox. Все права защищены.<br>
+                Приложение предназначено только для законного использования.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Плавная прокрутка
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Анимация элементов при прокрутке
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = 1;
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.feature, .screenshot').forEach(el => {
+            el.style.opacity = 0;
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
